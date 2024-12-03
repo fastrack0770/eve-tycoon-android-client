@@ -12,16 +12,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.tycoon_client.ui.theme.Tycoon_clientTheme
+import com.example.tycoon_client.ui.viewmodel.RegionViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.tycoon_client.data.local.AppDatabase
+import com.example.tycoon_client.data.repository.RegionRepository
+import com.example.tycoon_client.ui.screen.RegionListScreen
+import com.example.tycoon_client.ui.viewmodel.RegionViewModelFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val database = AppDatabase.getInstance(applicationContext)
+        val repository = RegionRepository(database.regionDao())
+
         enableEdgeToEdge()
         setContent {
             Tycoon_clientTheme {
+                val factory = RegionViewModelFactory(repository)
+                val viewModel: RegionViewModel = viewModel(factory = factory)
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    RegionListScreen(
+                        viewModel = viewModel,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

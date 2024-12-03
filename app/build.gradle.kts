@@ -1,4 +1,5 @@
 plugins {
+    kotlin("kapt")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -56,4 +57,16 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.retrofit) // Для основной библиотеки Retrofit
+    implementation(libs.retrofit.gson) // Для конвертера Gson
+    implementation(libs.room.runtime) // Для Room
+    kapt(libs.room.compiler) // Для компилятора Room
+    implementation(libs.kotlinx.coroutines.core) // Для корутин
+    implementation(libs.kotlinx.coroutines.android) // Для корутин на Android
+    implementation(libs.androidx.material3) // Пример для Material3
+    testImplementation(libs.junit) // Для тестирования
+    androidTestImplementation(libs.androidx.junit) // Для UI тестирования
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.room.ktx)
 }
